@@ -4,8 +4,10 @@ on:
     types: [opened, synchronize]
 
 permissions:
-  contents: read
-  pull-requests: write
+    contents: write
+    pull-requests: write
+    issues: write
+    id-token: write
 
 jobs:
   review:
