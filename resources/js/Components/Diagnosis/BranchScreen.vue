@@ -24,7 +24,7 @@ const emit = defineEmits(['choose'])
                         :disabled="isCalculating"
                         class="w-full py-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-rose-400 to-orange-400 shadow-lg shadow-purple-200 transition-all hover:-translate-y-0.5 disabled:opacity-50"
                     >
-                        🔍 もっと詳しく診断する（+4問）
+                        <span class="material-icons align-middle" style="font-size:16px;">search</span> もっと詳しく診断する（+4問）
                     </button>
                     <button
                         @click="emit('choose', false)"

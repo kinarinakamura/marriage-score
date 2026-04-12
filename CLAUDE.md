@@ -10,6 +10,7 @@ npm run setup
 
 # 開発サーバー起動（Laravel・Queue・ログ・Vite を並列起動）
 npm run dev
+php artisan serve
 
 # 全テスト実行
 composer run test
@@ -28,7 +29,7 @@ npm run build
 
 ## アーキテクチャ
 
-**Laravel 13 + Inertia.js + Vue 3** で構築された、婚活偏差値しらべアプリケーション。
+**Laravel 13 + Inertia.js + Vue 3** で構築された、婚活偏差値アプリケーション。
 
 ### リクエストフロー
 

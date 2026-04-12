@@ -1,0 +1,38 @@
+name: Claude PR Review
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+    contents: write
+    pull-requests: write
+    issues: write
+    id-token: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          direct_prompt: |
+            このPRをレビューしてください。
+
+            ## レビュー観点
+            ### セキュリティ
+            - SQLインジェクション、XSSの可能性
+            - 認証・認可の漏れ
+            - 機密情報のハードコード
+
+            ### パフォーマンス
+            - N+1クエリ、不要なループ、メモリリーク
+
+            ### 可読性
+            - 変数名・関数名、複雑なロジック、コメントの適切さ
+
+            ## 出力フォーマット
+            **良い点** / **改善点**（具体的な修正案付き） / **質問**
+            の形式でPRにコメントしてください。
