@@ -96,7 +96,7 @@ function shareLINE() {
                 v-if="isHighScore && result.percentile"
                 class="text-sm font-bold text-pink-400 animate-fade-in-delay"
             >
-                上位 {{ result.percentile }}% にランクイン ✨
+                上位 {{ result.percentile }}% にランクイン <span class="material-icons align-middle" style="font-size:16px;">auto_awesome</span>
             </div>
         </div>
 

@@ -25,14 +25,14 @@ function start() {
                     あなたの<span class="">婚活力</span>、<br>どのくらい？
                 </h2>
                 <p class="text-sm text-gray-400 leading-relaxed mb-6">
-                    かんたんな質問に答えるだけで<br>
-                    あなたの強みと相性のいいタイプがわかります
+                    簡単な質問に答えるだけで<br>
+                    あなたの強みと相性のいいタイプが分かります
                 </p>
 
                 <div class="flex gap-2 justify-center mb-6">
                     <span class="bg-orange-50 border border-orange-200 rounded-lg px-3 py-2 text-xs font-bold text-gray-500">⏱ 約1分</span>
-                    <span class="bg-orange-50 border border-orange-200 rounded-lg px-3 py-2 text-xs font-bold text-gray-500">📊 7問でわかる</span>
-                    <span class="bg-orange-50 border border-orange-200 rounded-lg px-3 py-2 text-xs font-bold text-gray-500">🔒 登録不要</span>
+                    <span class="bg-orange-50 border border-orange-200 rounded-lg px-3 py-2 text-xs font-bold text-gray-500 flex items-center gap-1"><span class="material-icons" style="font-size:14px;">bar_chart</span> 7問でわかる</span>
+                    <span class="bg-orange-50 border border-orange-200 rounded-lg px-3 py-2 text-xs font-bold text-gray-500 flex items-center gap-1"><span class="material-icons" style="font-size:14px;">lock</span> 登録不要</span>
                 </div>
 
                 <div class="h-px bg-gray-100 -mx-8 mb-5"></div>

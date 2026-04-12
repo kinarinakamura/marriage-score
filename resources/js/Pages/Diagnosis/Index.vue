@@ -176,7 +176,7 @@ function retry() {
                 <div class="flex items-center justify-between px-5 py-5 border-b border-gray-100">
                     <div class="flex items-center gap-1">                                                                                                                                                                                      
                         <img src="/images/logo_ring.png" alt="logo" class="h-5" />                                                                                                                                                             
-                        <span class="font-bold text-sm" style="color: #4A3D3D;">婚活偏差値しらべ</span>                                                                                                                                        
+                        <span class="font-bold text-sm" style="color: #4A3D3D;">婚活偏差値診断</span>                                                                                                                                        
                     </div>
                     <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100" @click="closeMenu">
                         <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -210,7 +210,7 @@ function retry() {
         <header class="z-10 w-full px-5 md:px-10 py-4 flex items-center justify-between" style="background: #FFF9F5;">
             <div class="flex items-center gap-2">
                 <img src="/images/logo_ring.png" alt="logo" class="h-7" />
-                <h1 class="text-base font-black" style="color: #4A3D3D;">婚活偏差値しらべ</h1>
+                <h1 class="text-base font-black" style="color: #4A3D3D;">婚活偏差値診断</h1>
             </div>
             <button
                 class="w-9 h-9 flex flex-col items-center justify-center gap-[5px] rounded-xl hover:bg-pink-50 transition-colors"
