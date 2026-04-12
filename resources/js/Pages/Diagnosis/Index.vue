@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { usePage } from '@inertiajs/vue3'
+import { usePage, router } from '@inertiajs/vue3'
 import axios from 'axios'
 import IntroScreen from '@/Components/Diagnosis/IntroScreen.vue'
 import QuestionScreen from '@/Components/Diagnosis/QuestionScreen.vue'
@@ -188,21 +188,18 @@ function retry() {
                     <button
                         class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
                         style="color: #4A3D3D; opacity: 0.8;"
-                        @click="() => { retry(); closeMenu() }"
+                        @click="() => { closeMenu(); router.visit('/history') }"
                     >
                         更新履歴
                     </button>
-                    <button
+                    <!-- button
                         class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
                         style="color: #4A3D3D; opacity: 0.8;"
                         @click="() => { retry(); closeMenu() }"
                     >
                         運営者について
-                    </button>
+                    </button -->
                 </nav>
-                <div class="px-5 py-6 border-t border-gray-100">
-                    <p class="text-xs text-gray-400 leading-relaxed"></p>
-                </div>
             </div>
         </Transition>
 

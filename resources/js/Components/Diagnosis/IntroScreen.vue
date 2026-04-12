@@ -26,7 +26,7 @@ function start() {
                 </h2>
                 <p class="text-sm text-gray-400 leading-relaxed mb-6">
                     簡単な質問に答えるだけで<br>
-                    あなたの強みと相性のいいタイプが分かります
+                    あなたの強みと相性のいいタイプがわかります
                 </p>
 
                 <div class="flex gap-2 justify-center mb-6">
