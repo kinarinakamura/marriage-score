@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { usePage } from '@inertiajs/vue3'
+import { usePage, router } from '@inertiajs/vue3'
 import axios from 'axios'
 import IntroScreen from '@/Components/Diagnosis/IntroScreen.vue'
 import QuestionScreen from '@/Components/Diagnosis/QuestionScreen.vue'
@@ -19,6 +19,15 @@ const partnerPriorities = ref([])
 const result = ref(null)
 const isExtended = ref(false)
 const isCalculating = ref(false)
+const isMenuOpen = ref(false)
+
+function toggleMenu() {
+    isMenuOpen.value = !isMenuOpen.value
+}
+
+function closeMenu() {
+    isMenuOpen.value = false
+}
 
 // 性別に応じた質問をフィルタリング
 const basicQuestions = computed(() => {
@@ -149,15 +158,69 @@ function retry() {
             <div class="floating-shape shape-5"></div>
         </div>
 
-        <div class="max-w-[440px] mx-auto px-5 py-5 relative z-10 min-h-screen flex flex-col">
-            <!-- ヘッダー -->
-            <header class="text-center pt-5 pb-4">
-                <img src="/images/logo_ring.png" alt="logo" class="h-10 mx-auto mb-1" />
-                <h1 class="text-xl font-black" style="color: #4A3D3D;">
-                    婚活偏差値しらべ
-                </h1>
-                <p class="text-xs text-gray-400 mt-1 font-medium">あなたの強みを発見</p>
-            </header>
+        <!-- ハンバーガーメニュー オーバーレイ -->
+        <Transition name="fade">
+            <div
+                v-if="isMenuOpen"
+                class="fixed inset-0 bg-black/40 z-40"
+                @click="closeMenu"
+            />
+        </Transition>
+
+        <!-- ドロワー -->
+        <Transition name="slide">
+            <div
+                v-if="isMenuOpen"
+                class="fixed top-0 right-0 h-full w-72 bg-white z-50 shadow-2xl flex flex-col"
+            >
+                <div class="flex items-center justify-between px-5 py-5 border-b border-gray-100">
+                    <div class="flex items-center gap-1">                                                                                                                                                                                      
+                        <img src="/images/logo_ring.png" alt="logo" class="h-5" />                                                                                                                                                             
+                        <span class="font-bold text-sm" style="color: #4A3D3D;">婚活偏差値診断</span>                                                                                                                                        
+                    </div>
+                    <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100" @click="closeMenu">
+                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <nav class="flex-1 px-4 py-6 space-y-2">
+                    <button
+                        class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
+                        style="color: #4A3D3D; opacity: 0.8;"
+                        @click="() => { closeMenu(); router.visit('/history') }"
+                    >
+                        更新履歴
+                    </button>
+                    <!-- button
+                        class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
+                        style="color: #4A3D3D; opacity: 0.8;"
+                        @click="() => { retry(); closeMenu() }"
+                    >
+                        運営者について
+                    </button -->
+                </nav>
+            </div>
+        </Transition>
+
+        <!-- ヘッダー（全幅） -->
+        <header class="z-10 w-full px-5 md:px-10 py-4 flex items-center justify-between" style="background: #FFF9F5;">
+            <div class="flex items-center gap-2">
+                <img src="/images/logo_ring.png" alt="logo" class="h-7" />
+                <h1 class="text-base font-black" style="color: #4A3D3D;">婚活偏差値診断</h1>
+            </div>
+            <button
+                class="w-9 h-9 flex flex-col items-center justify-center gap-[5px] rounded-xl hover:bg-pink-50 transition-colors"
+                @click="toggleMenu"
+                aria-label="メニューを開く"
+            >
+                <span class="block w-5 h-0.5 rounded-full transition-all duration-300" :class="isMenuOpen ? 'rotate-45 translate-y-[7px]' : ''" style="background:#4A3D3D" />
+                <span class="block w-5 h-0.5 rounded-full transition-all duration-300" :class="isMenuOpen ? 'opacity-0' : ''" style="background:#4A3D3D" />
+                <span class="block w-5 h-0.5 rounded-full transition-all duration-300" :class="isMenuOpen ? '-rotate-45 -translate-y-[7px]' : ''" style="background:#4A3D3D" />
+            </button>
+        </header>
+
+        <div class="max-w-[440px] mx-auto px-5 pb-5 relative z-10 flex flex-col">
 
             <!-- メインコンテンツ -->
             <IntroScreen
@@ -228,4 +291,12 @@ function retry() {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-16px); }
 }
+
+/* オーバーレイ */
+.fade-enter-active, .fade-leave-active { transition: opacity 0.25s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+
+/* ドロワー */
+.slide-enter-active, .slide-leave-active { transition: transform 0.3s ease; }
+.slide-enter-from, .slide-leave-to { transform: translateX(100%); }
 </style>
