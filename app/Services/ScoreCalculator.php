@@ -43,15 +43,7 @@ class ScoreCalculator
             3 => ['male' => 20, 'female' => 20], // かなり苦手
         ],
 
-        // Q4: 住まいの環境
-        'living' => [
-            0 => ['male' => 80, 'female' => 75], // ひとり暮らし
-            1 => ['male' => 40, 'female' => 55], // 実家暮らし
-            2 => ['male' => 55, 'female' => 55], // シェアハウス等
-            3 => ['male' => 75, 'female' => 70], // 持ち家あり
-        ],
-
-        // Q5: 結婚への本気度
+        // Q4: 結婚への本気度
         'seriousness' => [
             0 => ['male' => 85, 'female' => 85], // 今すぐしたい
             1 => ['male' => 75, 'female' => 75], // 1〜2年以内には
@@ -159,7 +151,6 @@ class ScoreCalculator
         'age'                => 5,
         'income'             => 5,
         'communication'      => 3,
-        'living'             => 2,
         'seriousness'        => 3,
         'appearance_female'  => 4,
         'occupation_male'    => 4,
@@ -181,7 +172,6 @@ class ScoreCalculator
         'age'                => '年齢的なアドバンテージ',
         'income'             => '経済的な安定感',
         'communication'      => 'コミュニケーション力',
-        'living'             => '生活の自立度',
         'seriousness'        => '結婚への真剣さ',
         'appearance_female'  => '外見の好印象',
         'occupation_male'    => '仕事の安定感',
@@ -200,10 +190,9 @@ class ScoreCalculator
      *
      * @param string $gender 'male' or 'female'
      * @param array $answers ['question_id' => selected_index, ...]
-     * @param array $partnerPriorities [index, index] 相手に求める条件の上位2つ
      * @return array
      */
-    public function calculate(string $gender, array $answers, array $partnerPriorities = []): array
+    public function calculate(string $gender, array $answers): array
     {
         $totalWeightedScore = 0;
         $totalWeight = 0;
@@ -249,9 +238,6 @@ class ScoreCalculator
         $isHighScore = $hensachi >= 55;
         $comment = $this->generateComment($isHighScore, $topItems, $bottomItems);
 
-        // ギャップ分析
-        $gapAnalysis = $this->analyzeGap($gender, $itemScores, $partnerPriorities);
-
         // 相性タイプ
         $matchType = $this->determineMatchType($gender, $answers, $itemScores);
 
@@ -263,7 +249,6 @@ class ScoreCalculator
             'top_items'     => array_map(fn($id) => $this->labels[$id] ?? $id, $topItems),
             'bottom_items'  => array_map(fn($id) => $this->labels[$id] ?? $id, $bottomItems),
             'match_type'    => $matchType,
-            'gap_analysis'  => $gapAnalysis,
         ];
     }
 
@@ -321,34 +306,34 @@ class ScoreCalculator
     /**
      * ギャップ分析
      */
-    private function analyzeGap(string $gender, array $itemScores, array $partnerPriorities): ?array
-    {
-        if (empty($partnerPriorities)) {
-            return null;
-        }
+    // private function analyzeGap(string $gender, array $itemScores, array $partnerPriorities): ?array
+    // {
+    //     if (empty($partnerPriorities)) {
+    //         return null;
+    //     }
 
-        // 相手に求める条件のindex → 関連する自分の項目
-        $priorityMapping = [
-            0 => 'income',        // 年収・経済力
-            1 => $gender === 'female' ? 'appearance_female' : 'appearance_male', // 外見
-            2 => 'communication', // 性格・価値観
-            3 => 'age',           // 年齢
-        ];
+    //     // 相手に求める条件のindex → 関連する自分の項目
+    //     $priorityMapping = [
+    //         0 => 'income',        // 年収・経済力
+    //         1 => $gender === 'female' ? 'appearance_female' : 'appearance_male', // 外見
+    //         2 => 'communication', // 性格・価値観
+    //         3 => 'age',           // 年齢
+    //     ];
 
-        $gaps = [];
-        foreach ($partnerPriorities as $priorityIndex) {
-            $relatedItem = $priorityMapping[$priorityIndex] ?? null;
-            if ($relatedItem && isset($itemScores[$relatedItem])) {
-                $gaps[] = [
-                    'priority_label' => ['年収・経済力', '外見・スタイル', '性格・価値観', '年齢'][$priorityIndex] ?? '',
-                    'self_score'     => $itemScores[$relatedItem],
-                    'self_label'     => $this->labels[$relatedItem] ?? '',
-                ];
-            }
-        }
+    //     $gaps = [];
+    //     foreach ($partnerPriorities as $priorityIndex) {
+    //         $relatedItem = $priorityMapping[$priorityIndex] ?? null;
+    //         if ($relatedItem && isset($itemScores[$relatedItem])) {
+    //             $gaps[] = [
+    //                 'priority_label' => ['年収・経済力', '外見・スタイル', '性格・価値観', '年齢'][$priorityIndex] ?? '',
+    //                 'self_score'     => $itemScores[$relatedItem],
+    //                 'self_label'     => $this->labels[$relatedItem] ?? '',
+    //             ];
+    //         }
+    //     }
 
-        return $gaps;
-    }
+    //     return $gaps;
+    // }
 
     /**
      * 相性タイプ判定（簡易版）
