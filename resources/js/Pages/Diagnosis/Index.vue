@@ -257,20 +257,22 @@ function retry() {
             />
 
             <!-- フッター -->
-            <footer class="text-center pt-6 pb-4 mt-auto">
-                <div class="bg-white rounded-2xl p-5 shadow-sm">
-                    <template v-if="kari !== 'intro'">
-                        <div class="text-[10px] text-gray-400">運営者について</div>
-                        <div class="text-sm font-bold mt-1">KU. 👩</div>
-                        <div class="text-xs text-gray-400 mt-1 leading-relaxed">
-                            都内のIT企業で働くエンジニアです。<br>開発経験を活かして、女性向けの婚活偏差値サイトを作りました。気軽に楽しんでいただけたら嬉しいです！
+            <template v-if="screen === 'intro' || screen === 'result'">
+                <footer class="text-center pt-6 pb-4 mt-auto">
+                    <div class="bg-white rounded-2xl p-5 shadow-sm">
+                        <div v-if="screen === 'intro'">
+                            <div class="text-[10px] text-gray-400">運営者について</div>
+                            <div class="text-sm font-bold mt-1">KU. 👩</div>
+                            <div class="text-xs text-gray-400 mt-1 leading-relaxed">
+                                都内のIT企業で働くエンジニアです。<br>開発経験を活かして、女性向けの婚活偏差値診断サイトを作りました。気軽に楽しんでいただけたら嬉しいです！
+                            </div>
                         </div>
-                    </template>
-                    <div class="text-[10px] text-gray-400 leading-relaxed" :class="{ 'mt-0': screen !== 'intro', 'mt-3': screen === 'intro' }">
-                        ※ 診断の配点はIBJ成婚白書（2024年度版）・国税庁 民間給与実態統計調査を参考にしています
+                        <div v-if="screen === 'result'" class="text-[10px] text-gray-400 leading-relaxed">
+                            ※ 診断の配点はIBJ成婚白書（2024年度版）・国税庁 民間給与実態統計調査を参考にしています
+                        </div>
                     </div>
-                </div>
-            </footer>
+                </footer>
+            </template>
         </div>
     </div>
 </template>

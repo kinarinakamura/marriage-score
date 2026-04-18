@@ -75,7 +75,7 @@ function shareLINE() {
 </script>
 
 <template>
-    <div class="flex-1">
+    <div class="flex-1 mt-4">
         <!-- スコアカード -->
         <div class="bg-white rounded-[20px] p-8 shadow-md text-center mb-4 relative overflow-hidden animate-hero">
             <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-400 via-amber-400 to-green-400 via-purple-400"></div>
