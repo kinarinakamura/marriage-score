@@ -16,7 +16,7 @@ function start() {
 </script>
 
 <template>
-    <div class="flex-1 flex flex-col justify-center animate-fade-in">
+    <div class="flex-1 flex flex-col justify-center animate-fade-in mt-4 mb-10">
         <div class="bg-white rounded-[20px] p-8 shadow-md relative overflow-hidden">
             <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-400 via-amber-400 to-green-400"></div>
 
