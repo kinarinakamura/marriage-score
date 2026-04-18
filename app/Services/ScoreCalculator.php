@@ -6,7 +6,7 @@ class ScoreCalculator
 {
     /**
      * 男女別・質問別のスコアテーブル
-     * IBJ成婚白書(2024)・国税庁 民間給与実態統計調査を参考に配点
+     * IBJ成婚白書(2024)を参考に配点
      *
      * キー: 質問ID
      * 値: [選択肢index => [male_score, female_score]]
@@ -26,13 +26,13 @@ class ScoreCalculator
         // Q2: 年収
         // 男性: 500万がボーダー、800万で申込4倍(IBJ) / 女性: 300万以上で好印象
         'income' => [
-            0 => ['male' => 20, 'female' => 40], // 〜200万
+            0 => ['male' => 20, 'female' => 45], // 〜200万
             1 => ['male' => 35, 'female' => 55], // 〜350万
-            2 => ['male' => 55, 'female' => 70], // 〜500万
-            3 => ['male' => 75, 'female' => 80], // 〜700万
-            4 => ['male' => 85, 'female' => 85], // 〜850万
-            5 => ['male' => 90, 'female' => 90], // 〜1,000万
-            6 => ['male' => 95, 'female' => 95], // 1,000万以上
+            2 => ['male' => 55, 'female' => 65], // 〜500万
+            3 => ['male' => 75, 'female' => 70], // 〜700万
+            4 => ['male' => 85, 'female' => 75], // 〜850万
+            5 => ['male' => 90, 'female' => 80], // 〜1,000万
+            6 => ['male' => 95, 'female' => 85], // 1,000万以上
         ],
 
         // Q3: コミュニケーションの得意度
@@ -40,7 +40,7 @@ class ScoreCalculator
             0 => ['male' => 85, 'female' => 85], // 得意な方
             1 => ['male' => 65, 'female' => 65], // 普通かな
             2 => ['male' => 40, 'female' => 40], // ちょっと苦手
-            3 => ['male' => 20, 'female' => 20], // かなり苦手
+            3 => ['male' => 30, 'female' => 30], // かなり苦手
         ],
 
         // Q4: 結婚への本気度
@@ -48,10 +48,8 @@ class ScoreCalculator
             0 => ['male' => 85, 'female' => 85], // 今すぐしたい
             1 => ['male' => 75, 'female' => 75], // 1〜2年以内には
             2 => ['male' => 50, 'female' => 50], // いい人がいれば
-            3 => ['male' => 30, 'female' => 30], // まだ考え中
+            3 => ['male' => 40, 'female' => 40], // まだ考え中
         ],
-
-        // Q6: 相手に求める条件 → スコア加算なし（ギャップ分析用）
 
         // Q7 女性専用: 外見評価
         'appearance_female' => [
@@ -110,11 +108,11 @@ class ScoreCalculator
 
         // Q11: 身長（男性）
         'height_male' => [
-            0 => ['male' => 30], // 〜165cm
+            0 => ['male' => 40], // 〜165cm
             1 => ['male' => 55], // 166〜170cm
             2 => ['male' => 80], // 171〜175cm
             3 => ['male' => 85], // 176〜180cm
-            4 => ['male' => 75], // 181cm〜
+            4 => ['male' => 90], // 181cm〜
         ],
 
         // Q11: 身長（女性）
@@ -161,7 +159,7 @@ class ScoreCalculator
         'savings'            => 2,
         'height_male'        => 3,
         'height_female'      => 2,
-        'housework_female'   => 2,
+        'housework_female'   => 3,
         'appearance_male'    => 3,
     ];
 
@@ -302,38 +300,6 @@ class ScoreCalculator
         $label2 = isset($bottomItems[1]) ? $this->labels[$bottomItems[1]] ?? '行動力' : '行動力';
         return "あなたの伸びしろは「{$label1}」と「{$label2}」です。ここを少し意識するだけで、婚活市場での印象がグッと変わりそうです！";
     }
-
-    /**
-     * ギャップ分析
-     */
-    // private function analyzeGap(string $gender, array $itemScores, array $partnerPriorities): ?array
-    // {
-    //     if (empty($partnerPriorities)) {
-    //         return null;
-    //     }
-
-    //     // 相手に求める条件のindex → 関連する自分の項目
-    //     $priorityMapping = [
-    //         0 => 'income',        // 年収・経済力
-    //         1 => $gender === 'female' ? 'appearance_female' : 'appearance_male', // 外見
-    //         2 => 'communication', // 性格・価値観
-    //         3 => 'age',           // 年齢
-    //     ];
-
-    //     $gaps = [];
-    //     foreach ($partnerPriorities as $priorityIndex) {
-    //         $relatedItem = $priorityMapping[$priorityIndex] ?? null;
-    //         if ($relatedItem && isset($itemScores[$relatedItem])) {
-    //             $gaps[] = [
-    //                 'priority_label' => ['年収・経済力', '外見・スタイル', '性格・価値観', '年齢'][$priorityIndex] ?? '',
-    //                 'self_score'     => $itemScores[$relatedItem],
-    //                 'self_label'     => $this->labels[$relatedItem] ?? '',
-    //             ];
-    //         }
-    //     }
-
-    //     return $gaps;
-    // }
 
     /**
      * 相性タイプ判定（簡易版）

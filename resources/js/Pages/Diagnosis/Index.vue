@@ -250,7 +250,7 @@ function retry() {
                             </div>
                         </div>
                         <div v-if="screen === 'result'" class="text-[10px] text-gray-400 leading-relaxed">
-                            ※ 診断の配点はIBJ成婚白書（2024年度版）・国税庁 民間給与実態統計調査を参考にしています
+                            ※ 診断の配点はIBJ成婚白書（2024年度版）を参考にしています
                         </div>
                     </div>
                 </footer>
