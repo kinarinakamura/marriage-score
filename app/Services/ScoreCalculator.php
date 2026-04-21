@@ -237,7 +237,7 @@ class ScoreCalculator
         $comment = $this->generateComment($isHighScore, $topItems, $bottomItems);
 
         // 相性タイプ
-        $matchType = $this->determineMatchType($gender, $answers, $itemScores);
+        $matchType = $this->determineMatchType($gender, $answers, $itemScores, $isHighScore);
 
         return [
             'hensachi'      => $hensachi,
@@ -302,41 +302,57 @@ class ScoreCalculator
     }
 
     /**
-     * 相性タイプ判定（簡易版）
+     * 相性タイプ判定
+     * 高スコア → 強み領域から、低スコア → 弱み領域から相性タイプを決定
      */
-    private function determineMatchType(string $gender, array $answers, array $itemScores): array
+    private function determineMatchType(string $gender, array $answers, array $itemScores, bool $isHighScore): array
     {
-        $types = [
-            [
-                'name' => '穏やかで誠実な安定タイプ',
-                'text' => '穏やかで家庭的なタイプ。一緒にいて安心できる関係を大切にしてくれる人と相性◎ あなたの明るさと相手の落ち着きがちょうど良い補完関係になりそうです。',
+        $domains = [
+            'economy'       => ['income', 'savings', 'occupation_male', 'education'],   // 経済力
+            'communication' => ['communication', 'seriousness', 'personality_female'],  // コミュ力・真剣さ
+            'lifestyle'     => ['housework_male', 'housework_female'],                  // 生活力
+            'appearance'    => ['height_male', 'height_female', 'appearance_male', 'appearance_female'],  // 外見
+            ];
+
+        // 各領域のスコア平均を計算
+        $domainScores = [];
+        foreach ($domains as $domain => $keys) {
+            $scores = array_values(array_filter(
+                array_map(fn($k) => $itemScores[$k] ?? null, $keys),
+                fn($s) => $s !== null
+            ));
+            if (count($scores) > 0) {
+                $domainScores[$domain] = array_sum($scores) / count($scores);
+            }
+        }
+
+        if (empty($domainScores)) {
+            return ['label' => 'あなたに合うパートナー', 'text' => '誠実で一緒に成長できる人が◎'];
+        }
+
+        $descriptions = [
+            'strength' => [
+                'economy'       => ['label' => '経済力が強みのあなたには', 'text' => '将来設計を一緒に語れる、堅実なパートナーが◎'],
+                'communication' => ['label' => 'コミュ力が強みのあなたには', 'text' => '一緒にいて会話が弾む、感受性豊かな人が◎'],
+                'lifestyle'     => ['label' => '生活力が強みのあなたには', 'text' => '家庭を大切にする価値観を共有できる人が◎'],
+                'appearance'    => ['label' => '外見への意識が強みのあなたには', 'text' => '外見に気を遣う、清潔感のある人が◎'],
             ],
-            [
-                'name' => '知的で刺激をくれる成長タイプ',
-                'text' => '知的好奇心が旺盛なタイプ。お互いの世界を広げ合える関係が長続きしそうです。会話を楽しめる相手と相性◎',
-            ],
-            [
-                'name' => '行動力のあるリーダータイプ',
-                'text' => '行動力があって明るいタイプ。あなたの堅実さとバランスが取れるパートナーになりそう。一緒に新しいことに挑戦できる関係が築けそうです。',
-            ],
-            [
-                'name' => '一緒に成長できるパートナータイプ',
-                'text' => '誠実でコツコツ努力するタイプ。お互いの目標を応援し合える関係が長続きしそうです。価値観が近く、自然体でいられる相手と相性◎',
+            'weakness' => [
+                'economy'       => ['label' => '経済面が伸びしろのあなたには', 'text' => '経済的に安定していて、生活を一緒に支えてくれる人が◎'],
+                'communication' => ['label' => 'コミュ力が伸びしろのあなたには', 'text' => '穏やかに受け止めてくれる、包容力のある人が◎'],
+                'lifestyle'     => ['label' => '生活力が伸びしろのあなたには', 'text' => '家庭的でサポート上手な、頼れるパートナーが◎'],
+                'appearance'    => ['label' => '外見が伸びしろのあなたには', 'text' => '外見より内面や相性を大切にしてくれる人が◎'],
             ],
         ];
 
-        // コミュニケーションと本気度のスコアから簡易判定
-        $commScore = $itemScores['communication'] ?? 50;
-        $seriousnessScore = $itemScores['seriousness'] ?? 50;
-
-        $index = (int) (($commScore + $seriousnessScore) / 2);
-        $typeIndex = match (true) {
-            $index >= 75 => 0,
-            $index >= 55 => 1,
-            $index >= 40 => 2,
-            default      => 3,
-        };
-
-        return $types[$typeIndex];
+        if ($isHighScore) {
+            arsort($domainScores);
+            $key = array_key_first($domainScores);
+            return $descriptions['strength'][$key];
+        } else {
+            asort($domainScores);
+            $key = array_key_first($domainScores);
+            return $descriptions['weakness'][$key];
+        }
     }
 }

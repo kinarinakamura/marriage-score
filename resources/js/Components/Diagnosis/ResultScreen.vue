@@ -128,10 +128,10 @@ function shareLINE() {
                 <div class="flex items-center gap-1.5 mb-3">
                     <span class="text-sm font-bold text-amber-500">相性のいいタイプ</span>
                 </div>
-                <div class="text-sm font-black text-gray-600 text-gray mb-2">
-                    {{ result.match_type.name }}
+                <div class="text-sm text-gray-500 mb-1">
+                    {{ result.match_type.label }}
                 </div>
-                <p class="text-sm leading-relaxed text-gray-500">
+                <p class="text-sm leading-relaxed font-black text-gray-500">
                     {{ result.match_type.text }}
                 </p>
             </div>
