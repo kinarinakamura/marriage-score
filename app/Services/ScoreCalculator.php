@@ -290,15 +290,17 @@ class ScoreCalculator
      */
     private function generateComment(bool $isHighScore, array $topItems, array $bottomItems): string
     {
+        $span = fn(string $text) => "<span style=\"color:#6B7280;font-weight:900;\">「{$text}」</span>";
+
         if ($isHighScore) {
             $label1 = $this->labels[$topItems[0]] ?? '魅力';
             $label2 = isset($topItems[1]) ? $this->labels[$topItems[1]] ?? '人柄' : '人柄';
-            return "あなたの強みは「{$label1}」と「{$label2}」です。これは婚活市場でとても魅力的なポイントです。自信を持っていきましょう！";
+            return "あなたの強みは{$span($label1)}と{$span($label2)}です。これは婚活市場でとても魅力的なポイントです。自信を持っていきましょう！";
         }
 
         $label1 = $this->labels[$bottomItems[0]] ?? '自分磨き';
         $label2 = isset($bottomItems[1]) ? $this->labels[$bottomItems[1]] ?? '行動力' : '行動力';
-        return "あなたの伸びしろは「{$label1}」と「{$label2}」です。ここを少し意識するだけで、婚活市場での印象がグッと変わりそうです！";
+        return "あなたの伸びしろは{$span($label1)}と{$span($label2)}です。ここを少し意識するだけで、婚活市場での印象がグッと変わりそうです！";
     }
 
     /**
