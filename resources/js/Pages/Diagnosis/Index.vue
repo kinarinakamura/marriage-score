@@ -15,7 +15,6 @@ const screen = ref('intro') // intro, quiz, branch, extended, result
 const gender = ref(null)
 const currentIndex = ref(0)
 const answers = ref({})
-const partnerPriorities = ref([])
 const result = ref(null)
 const isExtended = ref(false)
 const isCalculating = ref(false)
@@ -65,27 +64,12 @@ function startQuiz(selectedGender) {
 }
 
 function selectOption(questionId, selectedIndex) {
-    if (questionId === 'partner_priorities') {
-        // 複数選択（2つまで）
-        const current = [...partnerPriorities.value]
-        const idx = current.indexOf(selectedIndex)
-        if (idx >= 0) {
-            current.splice(idx, 1)
-        } else if (current.length < 2) {
-            current.push(selectedIndex)
-        }
-        partnerPriorities.value = current
-    } else {
-        answers.value[questionId] = selectedIndex
-    }
+    answers.value[questionId] = selectedIndex
 }
 
 function canProceed() {
     const q = currentQuestion.value
     if (!q) return false
-    if (q.id === 'partner_priorities') {
-        return partnerPriorities.value.length === 2
-    }
     return answers.value[q.id] !== undefined
 }
 
@@ -122,7 +106,6 @@ async function submitDiagnosis(extended) {
         const response = await axios.post('/api/diagnosis/calculate', {
             gender: gender.value,
             answers: answers.value,
-            partner_priorities: partnerPriorities.value,
             is_extended: extended,
         })
         result.value = response.data
@@ -140,7 +123,6 @@ function retry() {
     gender.value = null
     currentIndex.value = 0
     answers.value = {}
-    partnerPriorities.value = []
     result.value = null
     isExtended.value = false
     window.scrollTo(0, 0)
@@ -268,7 +250,7 @@ function retry() {
                             </div>
                         </div>
                         <div v-if="screen === 'result'" class="text-[10px] text-gray-400 leading-relaxed">
-                            ※ 診断の配点はIBJ成婚白書（2024年度版）・国税庁 民間給与実態統計調査を参考にしています
+                            ※ 診断の配点はIBJ成婚白書（2024年度版）を参考にしています
                         </div>
                     </div>
                 </footer>

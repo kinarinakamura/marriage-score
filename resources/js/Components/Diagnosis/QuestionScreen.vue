@@ -33,7 +33,7 @@ function handleSelect(index) {
 </script>
 
 <template>
-    <div v-if="question" class="flex-1 flex flex-col">
+    <div v-if="question" class="flex-1 flex flex-col mb-10">
         <!-- プログレスバー -->
         <div class="mb-5">
             <div class="flex justify-between items-center mb-2">

@@ -28,16 +28,14 @@ class DiagnosisController extends Controller
     public function calculate(Request $request)
     {
         $validated = $request->validate([
-            'gender'             => 'required|in:male,female',
-            'answers'            => 'required|array',
-            'partner_priorities' => 'nullable|array|max:2',
-            'is_extended'        => 'boolean',
+            'gender'      => 'required|in:male,female',
+            'answers'     => 'required|array',
+            'is_extended' => 'boolean',
         ]);
 
         $result = $this->calculator->calculate(
             gender: $validated['gender'],
             answers: $validated['answers'],
-            partnerPriorities: $validated['partner_priorities'] ?? [],
         );
 
         // 回答を保存（集計用）
@@ -112,19 +110,6 @@ class DiagnosisController extends Controller
                 ],
             ],
             [
-                'id'       => 'living',
-                'text'     => '住まいの環境は？',
-                'hint'     => '',
-                'type'     => 'common',
-                'category' => 'basic',
-                'options'  => [
-                    'ひとり暮らし',
-                    '実家暮らし',
-                    'シェアハウス等',
-                    '持ち家あり',
-                ],
-            ],
-            [
                 'id'       => 'seriousness',
                 'text'     => '結婚への本気度は？',
                 'hint'     => '',
@@ -194,21 +179,6 @@ class DiagnosisController extends Controller
                     '基本的なことはできる',
                     '最低限はやっている',
                     'ほとんどしていない',
-                ],
-            ],
-
-            [
-                'id'           => 'partner_priorities',
-                'text'         => '相手に求める条件で大事なものを2つ選んでください',
-                'hint'         => '',
-                'type'         => 'common',
-                'category'     => 'basic',
-                'select_count' => 2,
-                'options'      => [
-                    '年収・経済力',
-                    '外見・スタイル',
-                    '性格・価値観の一致',
-                    '年齢',
                 ],
             ],
 

@@ -85,7 +85,7 @@ function closeMenu() {
         <div class="max-w-[440px] mx-auto px-5 pb-5 relative z-10 flex flex-col">
 
             <!-- メインコンテンツ -->
-            <div class="flex-1 flex flex-col justify-center animate-fade-in mt-4">
+            <div class="flex-1 flex flex-col justify-center animate-fade-in mt-4 mb-10">
                 <div class="bg-white rounded-[20px] p-8 shadow-md relative overflow-hidden">
                     <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-400 via-amber-400 to-green-400"></div>
 

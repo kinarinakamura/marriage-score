@@ -10,6 +10,7 @@ class HistoryController extends Controller
     {
         $histories = [
             '2026/4/6' => 'サイトをリリースしました',
+            '2026/4/25' => '偏差値の計算方法を改善しました',
         ];
 
         return Inertia::render('History/Index', [
