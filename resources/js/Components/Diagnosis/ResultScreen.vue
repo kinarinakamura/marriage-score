@@ -54,11 +54,11 @@ function launchConfetti() {
             width: ${5 + Math.random() * 8}px;
             height: ${5 + Math.random() * 8}px;
             border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
-            animation: confettiFall ${1.6 + Math.random() * 2}s ease-out forwards;
+            animation: confettiFall ${2.4 + Math.random() * 3}s ease-out both;
             animation-delay: ${Math.random() * 0.5}s;
         `
         container.appendChild(el)
-        setTimeout(() => el.remove(), 5000)
+        setTimeout(() => el.remove(), 7500)
     }
 }
 
@@ -80,7 +80,7 @@ function shareLINE() {
         <div class="bg-white rounded-[20px] p-8 shadow-md text-center mb-4 relative overflow-hidden animate-hero">
             <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-400 via-amber-400 to-green-400 via-purple-400"></div>
 
-            <div class="text-sm font-bold text-gray-400 mb-5">あなたの婚活偏差値</div>
+            <div class="text-sm font-bold text-gray-400 mb-3">あなたの婚活偏差値</div>
 
             <div class="relative inline-block mb-3">
                 <!-- グロウ -->
@@ -128,10 +128,10 @@ function shareLINE() {
                 <div class="flex items-center gap-1.5 mb-3">
                     <span class="text-sm font-bold text-amber-500">相性のいいタイプ</span>
                 </div>
-                <div class="text-sm font-black text-gray-600 text-gray mb-2">
-                    {{ result.match_type.name }}
+                <div class="text-sm text-gray-500 mb-1">
+                    {{ result.match_type.label }}
                 </div>
-                <p class="text-sm leading-relaxed text-gray-500">
+                <p class="text-sm leading-relaxed font-black text-gray-500">
                     {{ result.match_type.text }}
                 </p>
             </div>
@@ -170,6 +170,13 @@ function shareLINE() {
             </div>
         </transition>
     </div>
+
+    <!-- もう一度祝う（固定ボタン） -->
+    <button
+        @click="launchConfetti"
+        class="fixed bottom-5 right-5 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-xl shadow-md transition-all hover:bg-white/10 hover:scale-125 z-50"
+        title="もう一度祝う"
+    ><span class="material-icons text-gray-400" style="font-size:22px;">celebration</span></button>
 </template>
 
 <style scoped>
