@@ -31,7 +31,7 @@ function start() {
 
                 <div class="flex gap-2 justify-center mb-6">
                     <span class="bg-orange-50 border border-orange-200 rounded-lg px-3 py-2 text-xs font-bold text-gray-500">⏱ 約1分</span>
-                    <span class="bg-orange-50 border border-orange-200 rounded-lg px-3 py-2 text-xs font-bold text-gray-500 flex items-center gap-1"><span class="material-icons" style="font-size:14px;">bar_chart</span> 7問でわかる</span>
+                    <span class="bg-orange-50 border border-orange-200 rounded-lg px-3 py-2 text-xs font-bold text-gray-500 flex items-center gap-1"><span class="material-icons" style="font-size:14px;">bar_chart</span> 6問でわかる</span>
                     <span class="bg-orange-50 border border-orange-200 rounded-lg px-3 py-2 text-xs font-bold text-gray-500 flex items-center gap-1"><span class="material-icons" style="font-size:14px;">lock</span> 登録不要</span>
                 </div>
 
