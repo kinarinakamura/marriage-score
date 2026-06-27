@@ -140,7 +140,6 @@ function shareLINE() {
         <!-- シェア -->
         <transition name="card">
             <div v-if="showContent" class="text-center mb-4">
-                <div class="text-xs text-gray-400 font-medium mb-3">結果をシェアする</div>
                 <div class="flex gap-3 justify-center">
                     <button
                         @click="shareX"
