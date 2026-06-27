@@ -244,7 +244,7 @@ function retry() {
                     <div class="bg-white rounded-2xl p-5 shadow-sm">
                         <div v-if="screen === 'intro'">
                             <div class="text-[10px] text-gray-400">運営者について</div>
-                            <div class="text-sm font-bold mt-1">KU. 👩</div>
+                            <div class="text-sm font-bold mt-1">KU. </div>
                             <div class="text-xs text-gray-400 mt-1 leading-relaxed">
                                 都内のIT企業で働くエンジニアです。<br>開発経験を活かして、女性向けの婚活偏差値診断サイトを作りました。気軽に楽しんでいただけたら嬉しいです！
                             </div>
