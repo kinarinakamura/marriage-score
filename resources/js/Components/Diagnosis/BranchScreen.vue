@@ -15,7 +15,7 @@ const emit = defineEmits(['choose'])
                 <h2 class="text-lg text-gray-600 font-black mb-2">お疲れさまでした！</h2>
                 <p class="text-sm text-gray-400 leading-relaxed mb-8">
                     このまま結果を見ることもできますが、<br>
-                    <strong class="text-orange-500">あと4問</strong>答えるとより精密な結果が出ます
+                    <strong class="text-orange-500">あと4問</strong> 答えるとより精密な結果が出ます
                 </p>
 
                 <div class="flex flex-col gap-3">
@@ -29,7 +29,7 @@ const emit = defineEmits(['choose'])
                     <button
                         @click="emit('choose', false)"
                         :disabled="isCalculating"
-                        class="w-full py-4 rounded-xl font-bold text-sm border-2 border-gray-200 text-gray-400 transition-all hover:border-pink-200 disabled:opacity-50"
+                        class="w-full py-4 rounded-xl font-bold text-sm border-2 border-gray-200 text-gray-400 transition-all hover:-translate-y-0.5 disabled:opacity-50"
                     >
                         {{ isCalculating ? '計算中...' : '今すぐ結果を見る' }}
                     </button>

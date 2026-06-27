@@ -67,7 +67,7 @@ function start() {
                         ? 'bg-gradient-to-r from-rose-400 to-orange-400 shadow-lg shadow-orange-200 hover:-translate-y-0.5'
                         : 'bg-gray-200 text-gray-400 cursor-not-allowed'"
                 >
-                    診断をはじめる →
+                    診断をはじめる
                 </button>
             </div>
         </div>
