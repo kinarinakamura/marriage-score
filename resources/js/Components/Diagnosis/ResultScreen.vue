@@ -62,15 +62,25 @@ function launchConfetti() {
     }
 }
 
+const shareText = computed(() => {
+    if (isHighScore.value && props.result?.percentile) {
+        return `私の婚活偏差値は ${props.hensachi}（上位${props.result.percentile}%）でした！ 無料で診断してみて👇`
+    }
+    return `私の婚活偏差値は ${props.hensachi} でした！ 無料で診断してみて👇`
+})
+
 function shareX() {
-    const text = `婚活偏差値 ${props.hensachi} でした！ あなたも診断してみて👉`
-    const url = window.location.origin
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank')
+    const params = new URLSearchParams({
+        text: shareText.value,
+        url: window.location.origin,
+        hashtags: '婚活偏差値診断',
+    })
+    window.open(`https://twitter.com/intent/tweet?${params.toString()}`, '_blank', 'noopener,noreferrer')
 }
 
 function shareLINE() {
     const url = window.location.origin
-    window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`, '_blank')
+    window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer')
 }
 </script>
 
