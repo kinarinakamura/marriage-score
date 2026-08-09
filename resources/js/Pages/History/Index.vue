@@ -14,6 +14,17 @@ function toggleMenu() {
 function closeMenu() {
     isMenuOpen.value = false
 }
+
+function goToHistory() {
+    closeMenu()
+    // SPA遷移だとBlade側のSEOコンテンツが残るためフルページ遷移にする
+    window.location.assign('/history')
+}
+
+function goToOwner() {
+    closeMenu()
+    window.location.assign('https://kinari-works.com/')
+}
 </script>
 
 <template>
@@ -57,9 +68,16 @@ function closeMenu() {
                     <button
                         class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
                         style="color: #4A3D3D; opacity: 0.8;"
-                        @click="() => { closeMenu(); router.visit('/history') }"
+                        @click="goToHistory"
                     >
                         更新履歴
+                    </button>
+                    <button
+                        class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
+                        style="color: #4A3D3D; opacity: 0.8;"
+                        @click="goToOwner"
+                    >
+                        運営者について
                     </button>
                 </nav>
             </div>

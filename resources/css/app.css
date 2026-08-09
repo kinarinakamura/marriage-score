@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap');
-
+/* フォントは app.blade.php の <head> で preconnect + <link> により読み込む（LCP改善のため @import を廃止） */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
