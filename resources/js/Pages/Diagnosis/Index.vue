@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { usePage, router } from '@inertiajs/vue3'
+import { usePage } from '@inertiajs/vue3'
 import axios from 'axios'
 import IntroScreen from '@/Components/Diagnosis/IntroScreen.vue'
 import QuestionScreen from '@/Components/Diagnosis/QuestionScreen.vue'
@@ -26,6 +26,17 @@ function toggleMenu() {
 
 function closeMenu() {
     isMenuOpen.value = false
+}
+
+function goToHistory() {
+    closeMenu()
+    // SPA遷移だとBlade側のSEOコンテンツが残るためフルページ遷移にする
+    window.location.assign('/history')
+}
+
+function goToOwner() {
+    closeMenu()
+    window.location.assign('https://kinari-works.com/')
 }
 
 // 性別に応じた質問をフィルタリング
@@ -170,17 +181,17 @@ function retry() {
                     <button
                         class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
                         style="color: #4A3D3D; opacity: 0.8;"
-                        @click="() => { closeMenu(); router.visit('/history') }"
+                        @click="goToHistory"
                     >
                         更新履歴
                     </button>
-                    <!-- button
+                    <button
                         class="w-full text-left px-4 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
                         style="color: #4A3D3D; opacity: 0.8;"
-                        @click="() => { retry(); closeMenu() }"
+                        @click="goToOwner"
                     >
                         運営者について
-                    </button -->
+                    </button>
                 </nav>
             </div>
         </Transition>
